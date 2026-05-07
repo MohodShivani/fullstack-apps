@@ -1,0 +1,1 @@
+export const BACKEND_URL="https://fullstack-projects-k5nb.onrender.com"
