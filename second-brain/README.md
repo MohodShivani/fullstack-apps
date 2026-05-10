@@ -70,6 +70,12 @@ GET /api/v1/brain/:shareLink – Access shared content
 
 This project is licensed under the MIT License.
 
+🌐 Live Demo
+
+Render: https://second-brain-s2di.onrender.com
+Netlify: Netlify = https://thoughts-keeper.netlify.app
+
+
 
 ✉️ Contact
 GitHub: https://github.com/MohodShivani

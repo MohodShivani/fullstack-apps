@@ -230,6 +230,13 @@ GET /api/v1/journal/insights
 
 ---
 
+🌐 Live Demo
+
+Render: https://journal-system-j93j.onrender.com
+Netlify: https://journal-system.netlify.app
+
+
 # Author
 
-Full-stack practice project built with React, Node.js, Express, and MongoDB.
+Shivani Dipak Mohod
+
