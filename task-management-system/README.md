@@ -102,7 +102,7 @@ todo-app/
 Create a `.env` file inside the **backend** folder:
 
 ```
-PORT=5000
+PORT=3000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 ```
@@ -125,7 +125,8 @@ cd todo-app
 ```
 cd backend
 npm install
-npm start
+node server.js
+
 ```
 
 Server will run on:
