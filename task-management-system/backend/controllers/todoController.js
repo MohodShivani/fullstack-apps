@@ -47,7 +47,7 @@ exports.updateTodo = async (req, res) => {
     const { title, completed } = req.body;
 
     const todo = await Todo.findOneAndUpdate(
-      { _id: id, userId: req.userId }, // ownership check
+      { _id: id, userId: req.userId }, 
       { title, completed },
       { new: true }
     );
