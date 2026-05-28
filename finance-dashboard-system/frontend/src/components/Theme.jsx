@@ -14,7 +14,7 @@ export default function DarkModeToggle() {
   return (
     <button
       onClick={() => setDark(!dark)}
-      className="px-3 py-1 dark:bg-gray-700 rounded"
+      className="px-3 py-1 bg-gray-700 dark:bg-gray-900 dark:text-white rounded"
     >
       {dark ? "Light" : "Dark"}
     </button>

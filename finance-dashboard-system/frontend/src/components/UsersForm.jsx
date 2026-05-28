@@ -14,61 +14,69 @@ export default function UserForm({ onAdd }) {
   };
 
   const addUser = async () => {
+    e.prevent.Default()
     if (!form.username || !form.email) return;
+    try {
+      await API.post("/user", form);
 
-    await API.post("/users", form);
+      setForm({
+        username: "",
+        email: "",
+        role: "user",
+        status: "active",
+      });
 
-    setForm({
-      username: "",
-      email: "",
-      role: "user",
-      status: "active",
-    });
+      onAdd();
+    } catch (err) {
+      console.log(err)
+    }
 
-    onAdd();
   };
 
   return (
-    <div className="flex flex-wrap gap-2">
-      <input
-        name="username"
-        value={form.username}
-        onChange={handleChange}
-        placeholder="Username"
-        className="input"
-      />
+    <div className="bg-slate-700 text-black w-full h-24 p-10">
+      <form onSubmit={addUser} className="flex justify-around">
+        <input
+          name="username"
+          value={form.username}
+          onChange={handleChange}
+          placeholder="Username"
+          className="input w-56 h-8 rounded-md"
+        />
 
-      <input
-        name="email"
-        value={form.email}
-        onChange={handleChange}
-        placeholder="Email"
-        className="input"
-      />
+        <input
+          name="email"
+          value={form.email}
+          onChange={handleChange}
+          placeholder="Email"
+          className="input w-56 h-8 rounded-md"
+        />
 
-      <select
-        name="role"
-        value={form.role}
-        onChange={handleChange}
-        className="input"
-      >
-        <option value="admin">Admin</option>
-        <option value="user">User</option>
-      </select>
+        <select
+          name="role"
+          value={form.role}
+          onChange={handleChange}
+          className="input w-56 h-8 rounded-md"
+        >
+          <option value="admin">Admin</option>
+          <option value="user">User</option>
+        </select>
 
-      <select
-        name="status"
-        value={form.status}
-        onChange={handleChange}
-        className="input"
-      >
-        <option value="active">Active</option>
-        <option value="inactive">Inactive</option>
-      </select>
+        <select
+          name="status"
+          value={form.status}
+          onChange={handleChange}
+          className="input w-56 h-8 rounded-md"
+        >
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
 
-      <button onClick={addUser} className="btn-primary">
-        Add
-      </button>
+        <button type="submit" className="btn-primary w-40 h-8 border-2 rounded-md bg-slate-800 text-white">
+          Add
+        </button>
+      </form>
     </div>
+
   );
 }

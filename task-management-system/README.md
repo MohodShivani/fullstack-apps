@@ -212,7 +212,7 @@ This project is licensed under the **MIT License**.
 🌐 Live Demo
 
 Render: https://task-management-system-xtgg.onrender.com 
-Netlify: https://shivani-task-tracker.netlify.app
+Netlify: https://symphonious-croissant-1b10a8.netlify.app
 
 
 

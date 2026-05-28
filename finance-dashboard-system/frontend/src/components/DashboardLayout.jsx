@@ -8,7 +8,7 @@ export default function DashboardLayout() {
         <div className="flex h-screen">
 
             {/* Sidebar */}
-            <div className="w-64 bg-slate-900 text-white">
+            <div className="w-64 bg-slate-900 text-white dark:bg-slate-50 dark:text-slate-800">
                 <Sidebar />
             </div>
 
@@ -19,7 +19,7 @@ export default function DashboardLayout() {
                 <Navbar />
 
                 {/* Page Content */}
-                <div className="flex-1 p-6 overflow-y-auto">
+                <div className="flex-1 p-6 dark:bg-black overflow-y-auto">
                     <Outlet />
                 </div>
 

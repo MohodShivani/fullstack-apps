@@ -5,7 +5,9 @@ import authRoutes from "./routes/authRoutes.js";
 import contentRoutes from "./routes/contentRoutes.js";
 import brainRoutes from "./routes/brainRoutes.js";
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: "*",
+}));
 app.use(express.json());
 connectDB();
 app.use("/api/v1", authRoutes);

@@ -73,7 +73,7 @@ This project is licensed under the MIT License.
 🌐 Live Demo
 
 Render: https://second-brain-s2di.onrender.com
-Netlify: Netlify = https://thoughts-keeper.netlify.app
+Netlify: https://thoughts-keeper.netlify.app
 
 
 

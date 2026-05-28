@@ -1,90 +1,149 @@
 import { useEffect, useState } from "react";
 import API from "../../services/api";
+import {
+  BarChart,
+  Bar,
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+} from "recharts";
 
-export default function Overview() {
+const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+
+export default function OverviewPage() {
   const [summary, setSummary] = useState({});
-  const [category, setCategory] = useState([]);
-  const [recent, setRecent] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [trends, setTrends] = useState([]);
+  const [recent, setRecent] = useState([]);
 
   useEffect(() => {
-    fetchData();
+    fetchDashboardData();
   }, []);
 
-  const fetchData = async () => {
+  const fetchDashboardData = async () => {
     try {
-      const [summaryRes, categoryRes, recentRes, trendRes] =
+      const [summaryRes, categoryRes, trendsRes, recentRes] =
         await Promise.all([
-          API.get("/dashboard/summary"),
-          API.get("/dashboard/category"),
-          API.get("/dashboard/recent"),
-          API.get("/dashboard/trends"),
+          API.get("/api/dashboard/summary"),
+          API.get("/api/dashboard/category"),
+          API.get("/api/dashboard/trends"),
+          API.get("/api/dashboard/recent"),
         ]);
 
       setSummary(summaryRes.data);
-      setCategory(categoryRes.data);
+      setCategories(categoryRes.data);
+      setTrends(trendsRes.data);
       setRecent(recentRes.data);
-      setTrends(trendRes.data);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.log(error);
     }
   };
 
   return (
-    <div className="p-6 text-white">
-      
-      {/* SUMMARY */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
-        <div className="bg-green-500 p-4 rounded">
-          <h2>Income</h2>
-          <p>₹{summary.totalIncome}</p>
+    <div className="p-6 space-y-6">
+      <h1 className="text-3xl font-bold">Dashboard Overview</h1>
+
+      {/* Summary Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="bg-white shadow rounded-2xl p-5">
+          <h2 className="text-gray-500">Total Records</h2>
+          <p className="text-3xl font-bold">
+            {summary.totalRecords || 0}
+          </p>
         </div>
 
-        <div className="bg-red-500 p-4 rounded">
-          <h2>Expense</h2>
-          <p>₹{summary.totalExpense}</p>
+        <div className="bg-white shadow rounded-2xl p-5">
+          <h2 className="text-gray-500">Total Categories</h2>
+          <p className="text-3xl font-bold">
+            {summary.totalCategories || 0}
+          </p>
         </div>
 
-        <div className="bg-blue-500 p-4 rounded">
-          <h2>Balance</h2>
-          <p>₹{summary.netBalance}</p>
+        <div className="bg-white shadow rounded-2xl p-5">
+          <h2 className="text-gray-500">Active Users</h2>
+          <p className="text-3xl font-bold">
+            {summary.totalUsers || 0}
+          </p>
         </div>
       </div>
 
-      {/* CATEGORY */}
-      <div className="mb-6">
-        <h2 className="text-xl mb-2">Top Categories</h2>
-        {category.map((cat, i) => (
-          <div key={i} className="flex justify-between">
-            <span>{cat._id}</span>
-            <span>₹{cat.total}</span>
-          </div>
-        ))}
+      {/* Monthly Trends */}
+      <div className="bg-white shadow rounded-2xl p-5">
+        <h2 className="text-xl font-semibold mb-4">
+          Monthly Trends
+        </h2>
+
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={trends}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="month" />
+            <YAxis />
+            <Tooltip />
+            <Bar dataKey="count" fill="#3b82f6" />
+          </BarChart>
+        </ResponsiveContainer>
       </div>
 
-      {/* RECENT */}
-      <div className="mb-6">
-        <h2 className="text-xl mb-2">Recent Activity</h2>
-        {recent.map((item) => (
-          <div key={item._id} className="flex justify-between">
-            <span>{item.category}</span>
-            <span>₹{item.amount}</span>
-          </div>
-        ))}
+      {/* Category Distribution */}
+      <div className="bg-white shadow rounded-2xl p-5">
+        <h2 className="text-xl font-semibold mb-4">
+          Category Distribution
+        </h2>
+
+        <ResponsiveContainer width="100%" height={300}>
+          <PieChart>
+            <Pie
+              data={categories}
+              dataKey="total"
+              nameKey="category"
+              outerRadius={100}
+              label
+            >
+              {categories.map((entry, index) => (
+                <Cell
+                  key={index}
+                  fill={COLORS[index % COLORS.length]}
+                />
+              ))}
+            </Pie>
+            <Tooltip />
+          </PieChart>
+        </ResponsiveContainer>
       </div>
 
-      {/* TRENDS */}
-      <div>
-        <h2 className="text-xl mb-2">Monthly Trends</h2>
-        {trends.map((t) => (
-          <div key={t._id} className="flex justify-between">
-            <span>Month {t._id}</span>
-            <span>Income: ₹{t.income}</span>
-            <span>Expense: ₹{t.expense}</span>
-          </div>
-        ))}
-      </div>
+      {/* Recent Activity */}
+      <div className="bg-white shadow rounded-2xl p-5">
+        <h2 className="text-xl font-semibold mb-4">
+          Recent Activity
+        </h2>
 
+        <table className="w-full border-collapse">
+          <thead>
+            <tr className="border-b">
+              <th className="text-left p-2">Title</th>
+              <th className="text-left p-2">Category</th>
+              <th className="text-left p-2">Date</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {recent.map((item) => (
+              <tr key={item._id} className="border-b">
+                <td className="p-2">{item.title}</td>
+                <td className="p-2">{item.category}</td>
+                <td className="p-2">
+                  {new Date(item.createdAt).toLocaleDateString()}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

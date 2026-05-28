@@ -46,7 +46,7 @@ export function CreateContentModal({open,onClose,refresh}: CreateContentModalPro
             <div className="w-screen h-screen  fixed top-0 left-0 opacity-60 flex 
             justify-center">
             <div className="flex flex-col justify-center">
-                <span className="bg-white opacity-100 p-4 rounded fixed">
+                <span className="bg-white opacity-500 p-4 rounded fixed">
                     <div className="flex justify-end">
                         <div onClick={onClose} className="cursor-pointer">
                            <CrossIcon />
