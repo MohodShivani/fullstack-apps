@@ -23,7 +23,7 @@ export const signup = async (req: Request, res: Response) => {
   password = password.trim();
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 4);
 
     await User.create({
       username,
