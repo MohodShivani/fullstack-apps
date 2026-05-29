@@ -1,1 +1,1 @@
-export const BACKEND_URL="https://fullstack-projects-k5nb.onrender.com"
+export const BACKEND_URL="https://second-thought.onrender.com"
