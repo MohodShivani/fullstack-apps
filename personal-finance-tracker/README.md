@@ -292,7 +292,7 @@ Response:
 
 ##Live Link
 
-Netlify: 
+Netlify:https://finanance-tracker.netlify.app/ 
 Render: https://fullstack-apps-finance-manager.onrender.com
 
 ## 👩‍💻 Author
